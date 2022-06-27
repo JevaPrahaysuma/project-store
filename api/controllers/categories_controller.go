@@ -149,5 +149,5 @@ func (c *categoriesControllerImpl) DeleteCategory(w http.ResponseWriter, r *http
 	}
 
 	buildDeleteResponse(w, category_id)
-	utils.WriteAsJson(w, "{}")
+	utils.WriteAsJson(w, map[string]bool{"success delete": err == nil})
 }

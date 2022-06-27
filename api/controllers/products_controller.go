@@ -162,7 +162,7 @@ func (c *productsControllerImpl) DeleteProduct(w http.ResponseWriter, r *http.Re
 	}
 
 	buildDeleteResponse(w, product_id)
-	utils.WriteAsJson(w, "{}")
+	utils.WriteAsJson(w, map[string]bool{"success delete": err == nil})
 }
 
 func (c *productsControllerImpl) SearchProducts(w http.ResponseWriter, r *http.Request) {
