@@ -1,0 +1,29 @@
+- name: Running MYSQL Database as Docker Container using Ansible.
+  hosts: localhost
+  remote_user: root
+  tasks:
+    - name: Tear down existing services
+      community.docker.docker_compose:
+        project_src: project-store
+        - "docker-compose.yml"
+        state: absent
+
+    - name: Create and start services
+      community.docker.docker_compose:
+        project_src: project-store
+      register: output
+
+    - ansible.builtin.debug:
+        var: output
+
+    - name: Run `docker-compose up` again
+      community.docker.docker_compose:
+        project_src: project-store
+        build: no
+      register: output
+
+    - ansible.builtin.debug:
+        var: output
+
+    - ansible.builtin.assert:
+        that: "not output.changed "
